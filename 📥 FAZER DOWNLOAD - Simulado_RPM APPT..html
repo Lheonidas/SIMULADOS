@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - RPM APPT.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .progress {
+            text-align: center;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #1e3c72;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #d0d7de;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .option:hover {
+            border-color: #1e3c72;
+            background: #f0f4f8;
+            transform: translateX(5px);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 500;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            display: none;
+            font-size: 15px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .explanation strong {
+            color: #856404;
+            font-weight: bold;
+        }
+        
+        .meta {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+            font-style: italic;
+        }
+        
+        .score {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .score.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .option {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SIMULACRO INTERACTIVO - EXAMEN DE GRADO DE MEDICINA</h1>
+            <p class="subtitle">Bolivia - Preparación Oficial</p>
+        </div>
+        
+        <p class="description">Questões geradas a partir de RPM APPT..pdf</p>
+        
+        <div class="score" id="score"></div>
+
+        <div class="question" id="question-1">
+            <div class="question-header">
+                <span>PREGUNTA 1 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 28 años con gestación a las 32 semanas presenta pérdida abundante de líquido amniótico y AU después de una rotura prematura de membranas. Al examen físico se observa una dilatación cervical de 4 cm. ¿Qué método diagnóstico es más efectivo para confirmar la ruptura prematura de membranas?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(1, 0, 0)">A) Cristalografía; muestra del líquido amniótico en el cuello, se coloca en portaobjetos y se deja secar para observar el patrón en 'helecho' al microscopio</div>
+                <div class="option" onclick="checkAnswer(1, 1, 0)">B) Ecografía ILA; valor de colección de líquidos de cuadrantes, normal 5-24 cm</div>
+                <div class="option" onclick="checkAnswer(1, 2, 0)">C) PH – Nitrazina; se introduce una tira en el canal vaginal. Un cambio de color a azul = pH elevado, indica la presencia de líquido amniótico</div>
+                <div class="option" onclick="checkAnswer(1, 3, 0)">D) Maniobra de Valsalva; salida de líquido amniótico a la tos</div>
+            </div>
+            <div class="explanation" id="explanation-1">
+                <strong>Explicación / Justificación Médica:</strong> La cristalografía es el método diagnóstico más efectivo para confirmar la ruptura prematura de membranas. Se coloca una muestra del líquido amniótico en el cuello y se deja secar para observar el patrón en 'helecho' al microscopio, lo que permite detectar la presencia de células epidérmicas y otros elementos que indican la ruptura prematura de membranas.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-2">
+            <div class="question-header">
+                <span>PREGUNTA 2 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 30 años con gestación a las 28 semanas presenta dolor abdominal intensivo, fiebre y leucocitosis. Al examen físico se observa una dilatación cervical de 6 cm y signos de infección vaginal. ¿Qué es el diagnóstico más probable y la conducta inicial adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(2, 0, 0)">A) Corioamnionitis; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+                <div class="option" onclick="checkAnswer(2, 1, 0)">B) Cándida vulvovaginitis; Fluconazol oral c/ 3 días</div>
+                <div class="option" onclick="checkAnswer(2, 2, 0)">C) Infección urinaria; Ciprofloxacino oral c/ 7 días</div>
+                <div class="option" onclick="checkAnswer(2, 3, 0)">D) Trabajo de parto prematuro; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+            </div>
+            <div class="explanation" id="explanation-2">
+                <strong>Explicación / Justificación Médica:</strong> El diagnóstico más probable es corioamnionitis, una infección grave del líquido amniótico y membranas ovulares. La conducta inicial adecuada es iniciar antibioticoterapia con Ampicilina y Gentamicina para tratar la infección y reducir el riesgo de complicaciones.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-3">
+            <div class="question-header">
+                <span>PREGUNTA 3 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 25 años con gestación a las 24 semanas presenta pérdida abundante de líquido amniótico y AU después de una rotura prematura de membranas. Al examen físico se observa una dilatación cervical de 3 cm. ¿Qué es el tratamiento inicial recomendado?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(3, 0, 0)">A) Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h; Maduración pulmonar</div>
+                <div class="option" onclick="checkAnswer(3, 1, 0)">B) Ecografía ILA; valor de colección de líquidos de cuadrantes, normal 5-24 cm</div>
+                <div class="option" onclick="checkAnswer(3, 2, 0)">C) PH – Nitrazina; se introduce una tira en el canal vaginal. Un cambio de color a azul = pH elevado, indica la presencia de líquido amniótico</div>
+                <div class="option" onclick="checkAnswer(3, 3, 0)">D) Maniobra de Valsalva; salida de líquido amniótico a la tos</div>
+            </div>
+            <div class="explanation" id="explanation-3">
+                <strong>Explicación / Justificación Médica:</strong> El tratamiento inicial recomendado es Ampicilina y Gentamicina, con un esquema de 1g EV cada 6 horas y 80mg EV cada 12 horas respectivamente. También se recomienda la maduración pulmonar para prevenir complicaciones en el neonato.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-4">
+            <div class="question-header">
+                <span>PREGUNTA 4 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 35 años con gestación a las 32 semanas presenta dolor abdominal intensivo, fiebre y leucocitosis. Al examen físico se observa una dilatación cervical de 8 cm y signos de infección vaginal. ¿Qué es el diagnóstico más probable y la conducta inicial adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(4, 0, 0)">A) Corioamnionitis; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+                <div class="option" onclick="checkAnswer(4, 1, 0)">B) Cándida vulvovaginitis; Fluconazol oral c/ 3 días</div>
+                <div class="option" onclick="checkAnswer(4, 2, 0)">C) Infección urinaria; Ciprofloxacino oral c/ 7 días</div>
+                <div class="option" onclick="checkAnswer(4, 3, 0)">D) Trabajo de parto prematuro; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+            </div>
+            <div class="explanation" id="explanation-4">
+                <strong>Explicación / Justificación Médica:</strong> El diagnóstico más probable es corioamnionitis, una infección grave del líquido amniótico y membranas ovulares. La conducta inicial adecuada es iniciar antibioticoterapia con Ampicilina y Gentamicina para tratar la infección y reducir el riesgo de complicaciones.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-5">
+            <div class="question-header">
+                <span>PREGUNTA 5 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 28 años con gestación a las 30 semanas presenta pérdida abundante de líquido amniótico y AU después de una rotura prematura de membranas. Al examen físico se observa una dilatación cervical de 5 cm. ¿Qué es el tratamiento inicial recomendado?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(5, 0, 0)">A) Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h; Maduración pulmonar</div>
+                <div class="option" onclick="checkAnswer(5, 1, 0)">B) Ecografía ILA; valor de colección de líquidos de cuadrantes, normal 5-24 cm</div>
+                <div class="option" onclick="checkAnswer(5, 2, 0)">C) PH – Nitrazina; se introduce una tira en el canal vaginal. Un cambio de color a azul = pH elevado, indica la presencia de líquido amniótico</div>
+                <div class="option" onclick="checkAnswer(5, 3, 0)">D) Maniobra de Valsalva; salida de líquido amniótico a la tos</div>
+            </div>
+            <div class="explanation" id="explanation-5">
+                <strong>Explicación / Justificación Médica:</strong> El tratamiento inicial recomendado es Ampicilina y Gentamicina, con un esquema de 1g EV cada 6 horas y 80mg EV cada 12 horas respectivamente. También se recomienda la maduración pulmonar para prevenir complicaciones en el neonato.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-6">
+            <div class="question-header">
+                <span>PREGUNTA 6 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 27 años con gestación a las 28 semanas presenta dolor abdominal intensivo, fiebre y leucocitosis. Al examen físico se observa una dilatación cervical de 6 cm y signos de infección vaginal. ¿Qué es el diagnóstico más probable y la conducta inicial adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(6, 0, 0)">A) Corioamnionitis; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+                <div class="option" onclick="checkAnswer(6, 1, 0)">B) Cándida vulvovaginitis; Fluconazol oral c/ 3 días</div>
+                <div class="option" onclick="checkAnswer(6, 2, 0)">C) Infección urinaria; Ciprofloxacino oral c/ 7 días</div>
+                <div class="option" onclick="checkAnswer(6, 3, 0)">D) Trabajo de parto prematuro; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+            </div>
+            <div class="explanation" id="explanation-6">
+                <strong>Explicación / Justificación Médica:</strong> El diagnóstico más probable es corioamnionitis, una infección grave del líquido amniótico y membranas ovulares. La conducta inicial adecuada es iniciar antibioticoterapia con Ampicilina y Gentamicina para tratar la infección y reducir el riesgo de complicaciones.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-7">
+            <div class="question-header">
+                <span>PREGUNTA 7 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 29 años con gestación a las 26 semanas presenta pérdida abundante de líquido amniótico y AU después de una rotura prematura de membranas. Al examen físico se observa una dilatación cervical de 4 cm. ¿Qué es el tratamiento inicial recomendado?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(7, 0, 0)">A) Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h; Maduración pulmonar</div>
+                <div class="option" onclick="checkAnswer(7, 1, 0)">B) Ecografía ILA; valor de colección de líquidos de cuadrantes, normal 5-24 cm</div>
+                <div class="option" onclick="checkAnswer(7, 2, 0)">C) PH – Nitrazina; se introduce una tira en el canal vaginal. Un cambio de color a azul = pH elevado, indica la presencia de líquido amniótico</div>
+                <div class="option" onclick="checkAnswer(7, 3, 0)">D) Maniobra de Valsalva; salida de líquido amniótico a la tos</div>
+            </div>
+            <div class="explanation" id="explanation-7">
+                <strong>Explicación / Justificación Médica:</strong> El tratamiento inicial recomendado es Ampicilina y Gentamicina, con un esquema de 1g EV cada 6 horas y 80mg EV cada 12 horas respectivamente. También se recomienda la maduración pulmonar para prevenir complicaciones en el neonato.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-8">
+            <div class="question-header">
+                <span>PREGUNTA 8 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 33 años con gestación a las 32 semanas presenta dolor abdominal intensivo, fiebre y leucocitosis. Al examen físico se observa una dilatación cervical de 8 cm y signos de infección vaginal. ¿Qué es el diagnóstico más probable y la conducta inicial adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(8, 0, 0)">A) Corioamnionitis; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+                <div class="option" onclick="checkAnswer(8, 1, 0)">B) Cándida vulvovaginitis; Fluconazol oral c/ 3 días</div>
+                <div class="option" onclick="checkAnswer(8, 2, 0)">C) Infección urinaria; Ciprofloxacino oral c/ 7 días</div>
+                <div class="option" onclick="checkAnswer(8, 3, 0)">D) Trabajo de parto prematuro; Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h</div>
+            </div>
+            <div class="explanation" id="explanation-8">
+                <strong>Explicación / Justificación Médica:</strong> El diagnóstico más probable es corioamnionitis, una infección grave del líquido amniótico y membranas ovulares. La conducta inicial adecuada es iniciar antibioticoterapia con Ampicilina y Gentamicina para tratar la infección y reducir el riesgo de complicaciones.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Ginecología</div>
+        </div>
+
+        <div class="question" id="question-9">
+            <div class="question-header">
+                <span>PREGUNTA 9 DE 9</span>
+            </div>
+            <div class="question-text">Una paciente de 31 años con gestación a las 30 semanas presenta pérdida abundante de líquido amniótico y AU después de una rotura prematura de membranas. Al examen físico se observa una dilatación cervical de 6 cm. ¿Qué es el tratamiento inicial recomendado?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(9, 0, 0)">A) Ampicilina 1g EV c/ 6h + Gentamicina 80mg EV c/ 12 h; Maduración pulmonar</div>
+                <div class="option" onclick="checkAnswer(9, 1, 0)">B) Ecografía ILA; valor de colección de líquidos de cuadrantes, normal 5-24 cm</div>
+                <div class="option" onclick="checkAnswer(9, 2, 0)">C) PH – Nitrazina; se introduce una tira en el canal vaginal. Un cambio de color a azul = pH elevado, indica la presencia de líquido amniótico</div>
+                <div class="option" onclick="checkAnswer(9, 3, 0)">D) Maniobra de Valsalva; salida de líquido amniótico a la tos</div>
+            </div>
+            <div class="explanation" id="explanation-9">
+                <strong>Explicación / Justificación Médica:</strong> El tratamiento inicial recomendado es Ampicilina y Gentamicina, con un esquema de 1g EV cada 6 horas y 80mg EV cada 12 horas respectivamente. También se recomienda la maduración pulmonar para prevenir complicaciones en el neonato.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Ginecología</div>
+        </div>
+
+    </div>
+    
+    <script>
+        let correct = 0;
+        let total = 0;
+        
+        function checkAnswer(questionNum, selected, correctAnswer) {
+            const question = document.getElementById('question-' + questionNum);
+            const options = question.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation-' + questionNum);
+            
+            // Desabilitar todas las opciones de esta pregunta
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            // Marcar la seleccionada
+            if (selected === correctAnswer) {
+                options[selected].classList.add('correct');
+                correct++;
+            } else {
+                options[selected].classList.add('incorrect');
+                options[correctAnswer].classList.add('correct');
+            }
+            
+            // Mostrar explicación
+            explanation.classList.add('show');
+            
+            // Actualizar puntuación
+            total++;
+            updateScore();
+        }
+        
+        function updateScore() {
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.add('show');
+            scoreDiv.textContent = `Puntuación: ${correct}/${total} (${Math.round((correct/total)*100)}%)`;
+        }
+    </script>
+</body>
+</html>

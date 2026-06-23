@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - GW PEDIATRIA AULA 4 INTENSIVO </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .progress {
+            text-align: center;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #1e3c72;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #d0d7de;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .option:hover {
+            border-color: #1e3c72;
+            background: #f0f4f8;
+            transform: translateX(5px);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 500;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            display: none;
+            font-size: 15px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .explanation strong {
+            color: #856404;
+            font-weight: bold;
+        }
+        
+        .meta {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+            font-style: italic;
+        }
+        
+        .score {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .score.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .option {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SIMULACRO INTERACTIVO - EXAMEN DE GRADO DE MEDICINA</h1>
+            <p class="subtitle">Bolivia - Preparación Oficial</p>
+        </div>
+        
+        <p class="description">Questões geradas a partir de GW PEDIATRIA AULA 4 INTENSIVO .pdf</p>
+        
+        <div class="score" id="score"></div>
+
+        <div class="question" id="question-1">
+            <div class="question-header">
+                <span>PREGUNTA 1 DE 3</span>
+            </div>
+            <div class="question-text">Un niño de 3 años presenta una enfermedad respiratoria aguda severa (IRAS) con síntomas de laringitis. La paciente tiene fiebre de 38°C, ronquera y disfonía. En el examen físico, se observa estridor inspiratorio I. ¿Cuál es el diagnóstico más probable y la conducta inicial adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(1, 0, 1)">A) Laringitis viral - Tratamiento sintomático con paracetamol y monitorización clínica</div>
+                <div class="option" onclick="checkAnswer(1, 1, 1)">B) Laringotraqueobronquitis - Internación inmediata para recibir dexametasona e intubación endotracheal si es necesario</div>
+                <div class="option" onclick="checkAnswer(1, 2, 1)">C) Epiglotitis - Realizar una tomografía computada de tórax (TCT) y realizar una cirugía de urgencia si es necesario</div>
+                <div class="option" onclick="checkAnswer(1, 3, 1)">D) Bronquiolitis - Tratamiento sintomático con broncodilatadores e hidratación</div>
+            </div>
+            <div class="explanation" id="explanation-1">
+                <strong>Explicación / Justificación Médica:</strong> La presencia de estridor inspiratorio I y disfonía sugiere una enfermedad respiratoria aguda severa. La laringotraqueobronquitis es la condición más probable, ya que se caracteriza por una inflamación aguda de la laringe, tráquea y bronquios. La conducta inicial adecuada es internar al paciente para recibir dexametasona e intubación endotracheal si es necesario.
+            </div>
+            <div class="meta">Dificultad: difícil | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-2">
+            <div class="question-header">
+                <span>PREGUNTA 2 DE 3</span>
+            </div>
+            <div class="question-text">Una niña de 6 meses presenta una enfermedad respiratoria aguda severa (IRAS) con síntomas de bronquiolitis. La paciente tiene temperatura de 39°C, tos seca y dificultad para respirar. En el examen físico, se observa taquipnea y cianosis. ¿Cuál es el diagnóstico más probable y la conducta inicial adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(2, 0, 0)">A) Bronquiolitis - Tratamiento sintomático con broncodilatadores e hidratación</div>
+                <div class="option" onclick="checkAnswer(2, 1, 0)">B) Laringitis viral - Tratamiento sintomático con paracetamol y monitorización clínica</div>
+                <div class="option" onclick="checkAnswer(2, 2, 0)">C) Pneumonía bacteriana - Iniciar antibioticoterapia y realizar radiografía de tórax</div>
+                <div class="option" onclick="checkAnswer(2, 3, 0)">D) Asma - Administre broncodilatadores e hidratación</div>
+            </div>
+            <div class="explanation" id="explanation-2">
+                <strong>Explicación / Justificación Médica:</strong> La presencia de tos seca, dificultad para respirar, taquipnea y cianosis sugiere una enfermedad respiratoria aguda severa. La bronquiolitis es la condición más probable, ya que se caracteriza por una inflamación aguda de los bronquios en niños menores de un año. La conducta inicial adecuada es tratar sintomáticamente con broncodilatadores e hidratación.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-3">
+            <div class="question-header">
+                <span>PREGUNTA 3 DE 3</span>
+            </div>
+            <div class="question-text">Un niño de 2 años presenta una enfermedad respiratoria aguda severa (IRAS) con síntomas de epiglotitis. La paciente tiene temperatura de 39°C, disnea y disfagia. En el examen físico, se observa obstrucción de la vía aérea. ¿Cuál es el diagnóstico más probable y la conducta inicial adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(3, 0, 0)">A) Epiglotitis - Realizar una tomografía computada de tórax (TCT) y realizar cirugía de urgencia si es necesario</div>
+                <div class="option" onclick="checkAnswer(3, 1, 0)">B) Laringotraqueobronquitis - Internación inmediata para recibir dexametasona e intubación endotracheal si es necesario</div>
+                <div class="option" onclick="checkAnswer(3, 2, 0)">C) Pneumonía bacteriana - Iniciar antibioticoterapia y realizar radiografía de tórax</div>
+                <div class="option" onclick="checkAnswer(3, 3, 0)">D) Asma - Administre broncodilatadores e hidratación</div>
+            </div>
+            <div class="explanation" id="explanation-3">
+                <strong>Explicación / Justificación Médica:</strong> La presencia de disnea, disfagia y obstrucción de la vía aérea sugiere una enfermedad respiratoria aguda severa. La epiglotitis es la condición más probable, ya que se caracteriza por una inflamación bacteriana de la epiglotois. La conducta inicial adecuada es realizar cirugía de urgencia si es necesario.
+            </div>
+            <div class="meta">Dificultad: difícil | Tema: Pediatria</div>
+        </div>
+
+    </div>
+    
+    <script>
+        let correct = 0;
+        let total = 0;
+        
+        function checkAnswer(questionNum, selected, correctAnswer) {
+            const question = document.getElementById('question-' + questionNum);
+            const options = question.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation-' + questionNum);
+            
+            // Desabilitar todas las opciones de esta pregunta
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            // Marcar la seleccionada
+            if (selected === correctAnswer) {
+                options[selected].classList.add('correct');
+                correct++;
+            } else {
+                options[selected].classList.add('incorrect');
+                options[correctAnswer].classList.add('correct');
+            }
+            
+            // Mostrar explicación
+            explanation.classList.add('show');
+            
+            // Actualizar puntuación
+            total++;
+            updateScore();
+        }
+        
+        function updateScore() {
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.add('show');
+            scoreDiv.textContent = `Puntuación: ${correct}/${total} (${Math.round((correct/total)*100)}%)`;
+        }
+    </script>
+</body>
+</html>

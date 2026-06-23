@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - GW PEDIATRIA AULA 1 (1)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .progress {
+            text-align: center;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #1e3c72;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #d0d7de;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .option:hover {
+            border-color: #1e3c72;
+            background: #f0f4f8;
+            transform: translateX(5px);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 500;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            display: none;
+            font-size: 15px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .explanation strong {
+            color: #856404;
+            font-weight: bold;
+        }
+        
+        .meta {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+            font-style: italic;
+        }
+        
+        .score {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .score.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .option {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SIMULACRO INTERACTIVO - EXAMEN DE GRADO DE MEDICINA</h1>
+            <p class="subtitle">Bolivia - Preparación Oficial</p>
+        </div>
+        
+        <p class="description">Questões geradas a partir de GW PEDIATRIA AULA 1 (1).pdf</p>
+        
+        <div class="score" id="score"></div>
+
+        <div class="question" id="question-1">
+            <div class="question-header">
+                <span>PREGUNTA 1 DE 11</span>
+            </div>
+            <div class="question-text">Una madre de 28 años consulta debido a que su recién nacido de 3 meses presenta dificultad para sostener la cabeza y levantar las piernas cuando está en posición lateral. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(1, 0, 2)">A) Hipoxia cerebral - Administrar oxígeno suplementario y realizar electroencefalograma</div>
+                <div class="option" onclick="checkAnswer(1, 1, 2)">B) Asfixia neonatal - Realizar apnea test y administrar tocolíticos si necesario</div>
+                <div class="option" onclick="checkAnswer(1, 2, 2)">C) Paresis facial - Iniciar fisioterapia y realizar evaluación neurológica</div>
+                <div class="option" onclick="checkAnswer(1, 3, 2)">D) Microcefalia - Realizar ecografía cerebral y evaluar crecimiento fetal</div>
+            </div>
+            <div class="explanation" id="explanation-1">
+                <strong>Explicación / Justificación Médica:</strong> La dificultad del lactante para sostener la cabeza y levantar las piernas puede ser un signo de paresis facial, lo que sugiere una lesión en el cerebro. La conducta inicial es inicia fisioterapia y realizar evaluación neurológica para determinar la gravedad de la lesión.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-2">
+            <div class="question-header">
+                <span>PREGUNTA 2 DE 11</span>
+            </div>
+            <div class="question-text">Un lactante de 6 meses presenta una serie de movimientos involuntarios en las extremidades y tronco. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(2, 0, 0)">A) Hipotonia - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(2, 1, 0)">B) Miastenia gravis - Iniciar terapia con acetilcolina y realizar evaluación neurológica</div>
+                <div class="option" onclick="checkAnswer(2, 2, 0)">C) Tonic-clónic crisis - Administrar benzodiazepinas y realizar electroencefalograma</div>
+                <div class="option" onclick="checkAnswer(2, 3, 0)">D) Neurosis infantil - Realizar psicoterapia y evaluar la calidad de vida</div>
+            </div>
+            <div class="explanation" id="explanation-2">
+                <strong>Explicación / Justificación Médica:</strong> La presentación de movimientos involuntarios en las extremidades y tronco puede ser un signo de hipotonia, lo que sugiere una disminución del tono muscular. La conducta inicial es realizar evaluación neurológica y fisioterapia para determinar la gravedad de la condición.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-3">
+            <div class="question-header">
+                <span>PREGUNTA 3 DE 11</span>
+            </div>
+            <div class="question-text">Un niño de 2 años presenta una lesión en el brazo izquierdo con dolor y edema. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(3, 0, 0)">A) Fractura - Realizar radiografía y realizar fisioterapia</div>
+                <div class="option" onclick="checkAnswer(3, 1, 0)">B) Cicatrización anormal - Iniciar fisioterapia y evaluar la calidad de vida</div>
+                <div class="option" onclick="checkAnswer(3, 2, 0)">C) Hematomas - Administrar antiinflamatorios y realizar evaluación neurológica</div>
+                <div class="option" onclick="checkAnswer(3, 3, 0)">D) Infección - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-3">
+                <strong>Explicación / Justificación Médica:</strong> La lesión en el brazo izquierdo con dolor y edema puede ser un signo de fractura, lo que requiere una evaluación radiográfica para determinar la gravedad de la condición. La conducta inicial es realizar radiografía y realizar fisioterapia.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-4">
+            <div class="question-header">
+                <span>PREGUNTA 4 DE 11</span>
+            </div>
+            <div class="question-text">Un lactante de 9 meses presenta dificultad para mover los brazos y piernas al mismo tiempo. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(4, 0, 0)">A) Hipotonia - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(4, 1, 0)">B) Distrofia muscular - Iniciar fisioterapia y evaluar la calidad de vida</div>
+                <div class="option" onclick="checkAnswer(4, 2, 0)">C) Cerebral palsy - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(4, 3, 0)">D) Infección - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-4">
+                <strong>Explicación / Justificación Médica:</strong> La dificultad para mover los brazos y piernas al mismo tiempo puede ser un signo de hipotonia, lo que sugiere una disminución del tono muscular. La conducta inicial es realizar evaluación neurológica y fisioterapia.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-5">
+            <div class="question-header">
+                <span>PREGUNTA 5 DE 11</span>
+            </div>
+            <div class="question-text">Un niño de 5 años presenta un dolor abdominal crónico y diarrea. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(5, 0, 1)">A) Colelitiasis - Realizar ecografía abdominal y realizar fisioterapia</div>
+                <div class="option" onclick="checkAnswer(5, 1, 1)">B) Dysbiosis - Iniciar probióticos y evaluar la respuesta al tratamiento</div>
+                <div class="option" onclick="checkAnswer(5, 2, 1)">C) Hipocreatinemia - Administrar reemplazo de creatina y evaluar la función renal</div>
+                <div class="option" onclick="checkAnswer(5, 3, 1)">D) Infección gastrointestinal - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-5">
+                <strong>Explicación / Justificación Médica:</strong> La presentación de dolor abdominal crónico y diarrea puede ser un signo de disbiosis, lo que sugiere una alteración en el equilibrio bacteriano. La conducta inicial es iniciar probióticos y evaluar la respuesta al tratamiento.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-6">
+            <div class="question-header">
+                <span>PREGUNTA 6 DE 11</span>
+            </div>
+            <div class="question-text">Un lactante de 3 meses presenta dificultad para sostener la cabeza y levantar las piernas cuando está en posición lateral. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(6, 0, 0)">A) Hipotonia - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(6, 1, 0)">B) Paresis facial - Iniciar fisioterapia y realizar evaluación neurológica</div>
+                <div class="option" onclick="checkAnswer(6, 2, 0)">C) Cerebral palsy - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(6, 3, 0)">D) Infección - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-6">
+                <strong>Explicación / Justificación Médica:</strong> La dificultad del lactante para sostener la cabeza y levantar las piernas puede ser un signo de hipotonia, lo que sugiere una disminución del tono muscular. La conducta inicial es realizar evaluación neurológica y fisioterapia.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-7">
+            <div class="question-header">
+                <span>PREGUNTA 7 DE 11</span>
+            </div>
+            <div class="question-text">Un niño de 8 años presenta un dolor abdominal agudo y vómitos. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(7, 0, 0)">A) Apendicitis aguda - Realizar apendicectomía de urgencia con antibioticoterapia profiláctica</div>
+                <div class="option" onclick="checkAnswer(7, 1, 0)">B) Colecistitis aguda - Iniciar antibioticoterapia y realizar ecografía abdominal</div>
+                <div class="option" onclick="checkAnswer(7, 2, 0)">C) Gastroenteritis aguda - Hidratación oral y dieta blanda con control ambulatorio</div>
+                <div class="option" onclick="checkAnswer(7, 3, 0)">D) Infección gastrointestinal - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-7">
+                <strong>Explicación / Justificación Médica:</strong> La presentación de dolor abdominal agudo y vómitos puede ser un signo de apendicitis aguda, lo que requiere una apendicectomía de urgencia con antibioticoterapia profiláctica.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-8">
+            <div class="question-header">
+                <span>PREGUNTA 8 DE 11</span>
+            </div>
+            <div class="question-text">Un lactante de 6 meses presenta una serie de movimientos involuntarios en las extremidades y tronco. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(8, 0, 0)">A) Hipotonia - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(8, 1, 0)">B) Miastenia gravis - Iniciar terapia con acetilcolina y realizar evaluación neurológica</div>
+                <div class="option" onclick="checkAnswer(8, 2, 0)">C) Tonic-clónic crisis - Administrar benzodiazepinas y realizar electroencefalograma</div>
+                <div class="option" onclick="checkAnswer(8, 3, 0)">D) Infección - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-8">
+                <strong>Explicación / Justificación Médica:</strong> La presentación de movimientos involuntarios en las extremidades y tronco puede ser un signo de hipotonia, lo que sugiere una disminución del tono muscular. La conducta inicial es realizar evaluación neurológica y fisioterapia.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-9">
+            <div class="question-header">
+                <span>PREGUNTA 9 DE 11</span>
+            </div>
+            <div class="question-text">Un niño de 10 años presenta un dolor abdominal crónico y diarrea. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(9, 0, 1)">A) Colelitiasis - Realizar ecografía abdominal y realizar fisioterapia</div>
+                <div class="option" onclick="checkAnswer(9, 1, 1)">B) Dysbiosis - Iniciar probióticos y evaluar la respuesta al tratamiento</div>
+                <div class="option" onclick="checkAnswer(9, 2, 1)">C) Hipocreatinemia - Administrar reemplazo de creatina y evaluar la función renal</div>
+                <div class="option" onclick="checkAnswer(9, 3, 1)">D) Infección gastrointestinal - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-9">
+                <strong>Explicación / Justificación Médica:</strong> La presentación de dolor abdominal crónico y diarrea puede ser un signo de disbiosis, lo que sugiere una alteración en el equilibrio bacteriano. La conducta inicial es iniciar probióticos y evaluar la respuesta al tratamiento.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-10">
+            <div class="question-header">
+                <span>PREGUNTA 10 DE 11</span>
+            </div>
+            <div class="question-text">Un lactante de 9 meses presenta dificultad para mover los brazos y piernas al mismo tiempo. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(10, 0, 0)">A) Hipotonia - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(10, 1, 0)">B) Distrofia muscular - Iniciar fisioterapia y evaluar la calidad de vida</div>
+                <div class="option" onclick="checkAnswer(10, 2, 0)">C) Cerebral palsy - Realizar evaluación neurológica y fisioterapia</div>
+                <div class="option" onclick="checkAnswer(10, 3, 0)">D) Infección - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-10">
+                <strong>Explicación / Justificación Médica:</strong> La dificultad para mover los brazos y piernas al mismo tiempo puede ser un signo de hipotonia, lo que sugiere una disminución del tono muscular. La conducta inicial es realizar evaluación neurológica y fisioterapia.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+        <div class="question" id="question-11">
+            <div class="question-header">
+                <span>PREGUNTA 11 DE 11</span>
+            </div>
+            <div class="question-text">Un niño de 7 años presenta un dolor abdominal crónico y diarrea. ¿Qué puede ser el diagnóstico y qué conducta inicial es adecuada?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(11, 0, 1)">A) Colelitiasis - Realizar ecografía abdominal y realizar fisioterapia</div>
+                <div class="option" onclick="checkAnswer(11, 1, 1)">B) Dysbiosis - Iniciar probióticos y evaluar la respuesta al tratamiento</div>
+                <div class="option" onclick="checkAnswer(11, 2, 1)">C) Hipocreatinemia - Administrar reemplazo de creatina y evaluar la función renal</div>
+                <div class="option" onclick="checkAnswer(11, 3, 1)">D) Infección gastrointestinal - Iniciar antibioticoterapia y evaluar la respuesta al tratamiento</div>
+            </div>
+            <div class="explanation" id="explanation-11">
+                <strong>Explicación / Justificación Médica:</strong> La presentación de dolor abdominal crónico y diarrea puede ser un signo de disbiosis, lo que sugiere una alteración en el equilibrio bacteriano. La conducta inicial es iniciar probióticos y evaluar la respuesta al tratamiento.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Pediatria</div>
+        </div>
+
+    </div>
+    
+    <script>
+        let correct = 0;
+        let total = 0;
+        
+        function checkAnswer(questionNum, selected, correctAnswer) {
+            const question = document.getElementById('question-' + questionNum);
+            const options = question.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation-' + questionNum);
+            
+            // Desabilitar todas las opciones de esta pregunta
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            // Marcar la seleccionada
+            if (selected === correctAnswer) {
+                options[selected].classList.add('correct');
+                correct++;
+            } else {
+                options[selected].classList.add('incorrect');
+                options[correctAnswer].classList.add('correct');
+            }
+            
+            // Mostrar explicación
+            explanation.classList.add('show');
+            
+            // Actualizar puntuación
+            total++;
+            updateScore();
+        }
+        
+        function updateScore() {
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.add('show');
+            scoreDiv.textContent = `Puntuación: ${correct}/${total} (${Math.round((correct/total)*100)}%)`;
+        }
+    </script>
+</body>
+</html>

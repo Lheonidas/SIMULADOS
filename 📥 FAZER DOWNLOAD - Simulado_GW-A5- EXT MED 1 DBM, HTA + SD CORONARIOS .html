@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - GW-A5- EXT MED 1 DBM, HTA + SD CORONARIOS </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .progress {
+            text-align: center;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #1e3c72;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #d0d7de;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .option:hover {
+            border-color: #1e3c72;
+            background: #f0f4f8;
+            transform: translateX(5px);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 500;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            display: none;
+            font-size: 15px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .explanation strong {
+            color: #856404;
+            font-weight: bold;
+        }
+        
+        .meta {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+            font-style: italic;
+        }
+        
+        .score {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .score.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .option {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SIMULACRO INTERACTIVO - EXAMEN DE GRADO DE MEDICINA</h1>
+            <p class="subtitle">Bolivia - Preparación Oficial</p>
+        </div>
+        
+        <p class="description">Questões geradas a partir de GW-A5- EXT MED 1 DBM, HTA + SD CORONARIOS .pdf</p>
+        
+        <div class="score" id="score"></div>
+
+        <div class="question" id="question-1">
+            <div class="question-header">
+                <span>PREGUNTA 1 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus tipo 2 de 35 años presenta glucemia en ayunas de 120 mg/dL y glucemia postprandial de 220 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(1, 0, 0)">A) La resistencia a la acción de la insulina es la causa principal del diabete</div>
+                <div class="option" onclick="checkAnswer(1, 1, 0)">B) La disminución de la producción de insulina es la causa principal del diabete</div>
+                <div class="option" onclick="checkAnswer(1, 2, 0)">C) El síndrome metabólico es la causa principal del diabete</div>
+                <div class="option" onclick="checkAnswer(1, 3, 0)">D) La obesidad es la causa principal del diabete</div>
+            </div>
+            <div class="explanation" id="explanation-1">
+                <strong>Explicación / Justificación Médica:</strong> La resistencia a la acción de la insulina es la causa principal del diabete mellitus tipo 2, ya que la disminución de la producción de insulina es un proceso normal en la edad y no se asocia con los valores de glucemia presentados.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-2">
+            <div class="question-header">
+                <span>PREGUNTA 2 DE 12</span>
+            </div>
+            <div class="question-text">Paciente embarazada de 28 semanas presenta glucemia en ayunas de 100 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(2, 0, 0)">A) La diabetes gestacional</div>
+                <div class="option" onclick="checkAnswer(2, 1, 0)">B) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(2, 2, 0)">C) La diabetes tipo 1</div>
+                <div class="option" onclick="checkAnswer(2, 3, 0)">D) La diabetes tipo 2</div>
+            </div>
+            <div class="explanation" id="explanation-2">
+                <strong>Explicación / Justificación Médica:</strong> La glucemia en ayunas de 100 mg/dL es un valor normal para una paciente embarazada, pero si se presenta resistencia periférica a la insulina por acción del lactogenio placentario, puede desarrollar diabetes gestacional.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Obstetricia y Ginecología</div>
+        </div>
+
+        <div class="question" id="question-3">
+            <div class="question-header">
+                <span>PREGUNTA 3 DE 12</span>
+            </div>
+            <div class="question-text">Paciente de 45 años presenta glucemia en ayunas de 140 mg/dL y glucemia postprandial de 250 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(3, 0, 0)">A) La diabetes tipo 2</div>
+                <div class="option" onclick="checkAnswer(3, 1, 0)">B) La resistencia a la acción de la insulina</div>
+                <div class="option" onclick="checkAnswer(3, 2, 0)">C) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(3, 3, 0)">D) La diabetes tipo 1</div>
+            </div>
+            <div class="explanation" id="explanation-3">
+                <strong>Explicación / Justificación Médica:</strong> La combinación de glucemia en ayunas elevada y postprandial, más la presencia de obesidad y resistencia a la acción de la insulina, sugiere un diagnóstico de diabetes tipo 2.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-4">
+            <div class="question-header">
+                <span>PREGUNTA 4 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus tipo 1 de 25 años presenta glucemia en ayunas de 150 mg/dL y glucemia postprandial de 200 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(4, 0, 3)">A) La diabetes tipo 2</div>
+                <div class="option" onclick="checkAnswer(4, 1, 3)">B) La resistencia a la acción de la insulina</div>
+                <div class="option" onclick="checkAnswer(4, 2, 3)">C) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(4, 3, 3)">D) La diabetes tipo 1</div>
+            </div>
+            <div class="explanation" id="explanation-4">
+                <strong>Explicación / Justificación Médica:</strong> La combinación de glucemia en ayunas elevada y postprandial, más la presencia de autoimmune en la historia clínica, sugiere un diagnóstico de diabetes tipo 1.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-5">
+            <div class="question-header">
+                <span>PREGUNTA 5 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus tipo 2 de 60 años presenta glucemia en ayunas de 100 mg/dL y glucemia postprandial de 180 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(5, 0, 0)">A) La resistencia a la acción de la insulina</div>
+                <div class="option" onclick="checkAnswer(5, 1, 0)">B) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(5, 2, 0)">C) La diabetes tipo 1</div>
+                <div class="option" onclick="checkAnswer(5, 3, 0)">D) La diabetes gestacional</div>
+            </div>
+            <div class="explanation" id="explanation-5">
+                <strong>Explicación / Justificación Médica:</strong> La combinación de glucemia en ayunas normal y postprandial elevada, más la presencia de obesidad y resistencia a la acción de la insulina, sugiere un diagnóstico de diabetes tipo 2.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-6">
+            <div class="question-header">
+                <span>PREGUNTA 6 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus gestacional de 30 semanas presenta glucemia en ayunas de 120 mg/dL y glucemia postprandial de 200 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(6, 0, 0)">A) La diabetes gestacional</div>
+                <div class="option" onclick="checkAnswer(6, 1, 0)">B) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(6, 2, 0)">C) La diabetes tipo 1</div>
+                <div class="option" onclick="checkAnswer(6, 3, 0)">D) La diabetes tipo 2</div>
+            </div>
+            <div class="explanation" id="explanation-6">
+                <strong>Explicación / Justificación Médica:</strong> La combinación de glucemia en ayunas elevada y postprandial, más la presencia de embarazo, sugiere un diagnóstico de diabetes gestacional.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Obstetricia y Ginecología</div>
+        </div>
+
+        <div class="question" id="question-7">
+            <div class="question-header">
+                <span>PREGUNTA 7 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus tipo 1 de 20 años presenta glucemia en ayunas de 180 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(7, 0, 3)">A) La diabetes tipo 2</div>
+                <div class="option" onclick="checkAnswer(7, 1, 3)">B) La resistencia a la acción de la insulina</div>
+                <div class="option" onclick="checkAnswer(7, 2, 3)">C) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(7, 3, 3)">D) La diabetes tipo 1</div>
+            </div>
+            <div class="explanation" id="explanation-7">
+                <strong>Explicación / Justificación Médica:</strong> La glucemia en ayunas elevada y el diagnóstico de autoimmune en la historia clínica sugieren un diagnóstico de diabetes tipo 1.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-8">
+            <div class="question-header">
+                <span>PREGUNTA 8 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus tipo 2 de 40 años presenta glucemia en ayunas de 140 mg/dL y glucemia postprandial de 220 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(8, 0, 0)">A) La resistencia a la acción de la insulina</div>
+                <div class="option" onclick="checkAnswer(8, 1, 0)">B) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(8, 2, 0)">C) La diabetes tipo 1</div>
+                <div class="option" onclick="checkAnswer(8, 3, 0)">D) La diabetes gestacional</div>
+            </div>
+            <div class="explanation" id="explanation-8">
+                <strong>Explicación / Justificación Médica:</strong> La combinación de glucemia en ayunas elevada y postprandial, más la presencia de obesidad y resistencia a la acción de la insulina, sugiere un diagnóstico de diabetes tipo 2.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-9">
+            <div class="question-header">
+                <span>PREGUNTA 9 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus gestacional de 28 semanas presenta glucemia en ayunas de 100 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(9, 0, 0)">A) La diabetes gestacional</div>
+                <div class="option" onclick="checkAnswer(9, 1, 0)">B) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(9, 2, 0)">C) La diabetes tipo 1</div>
+                <div class="option" onclick="checkAnswer(9, 3, 0)">D) La diabetes tipo 2</div>
+            </div>
+            <div class="explanation" id="explanation-9">
+                <strong>Explicación / Justificación Médica:</strong> La glucemia en ayunas normal y la presencia de embarazo sugieren un diagnóstico de diabetes gestacional.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Obstetricia y Ginecología</div>
+        </div>
+
+        <div class="question" id="question-10">
+            <div class="question-header">
+                <span>PREGUNTA 10 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus tipo 1 de 30 años presenta glucemia en ayunas de 150 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(10, 0, 3)">A) La diabetes tipo 2</div>
+                <div class="option" onclick="checkAnswer(10, 1, 3)">B) La resistencia a la acción de la insulina</div>
+                <div class="option" onclick="checkAnswer(10, 2, 3)">C) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(10, 3, 3)">D) La diabetes tipo 1</div>
+            </div>
+            <div class="explanation" id="explanation-10">
+                <strong>Explicación / Justificación Médica:</strong> La glucemia en ayunas elevada y el diagnóstico de autoimmune en la historia clínica sugieren un diagnóstico de diabetes tipo 1.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-11">
+            <div class="question-header">
+                <span>PREGUNTA 11 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus tipo 2 de 50 años presenta glucemia en ayunas de 110 mg/dL y glucemia postprandial de 200 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(11, 0, 0)">A) La resistencia a la acción de la insulina</div>
+                <div class="option" onclick="checkAnswer(11, 1, 0)">B) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(11, 2, 0)">C) La diabetes tipo 1</div>
+                <div class="option" onclick="checkAnswer(11, 3, 0)">D) La diabetes gestacional</div>
+            </div>
+            <div class="explanation" id="explanation-11">
+                <strong>Explicación / Justificación Médica:</strong> La combinación de glucemia en ayunas normal y postprandial elevada, más la presencia de obesidad y resistencia a la acción de la insulina, sugiere un diagnóstico de diabetes tipo 2.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Endocrinología</div>
+        </div>
+
+        <div class="question" id="question-12">
+            <div class="question-header">
+                <span>PREGUNTA 12 DE 12</span>
+            </div>
+            <div class="question-text">Paciente con diabetes mellitus gestacional de 32 semanas presenta glucemia en ayunas de 120 mg/dL. ¿Qué es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(12, 0, 0)">A) La diabetes gestacional</div>
+                <div class="option" onclick="checkAnswer(12, 1, 0)">B) El síndrome metabólico</div>
+                <div class="option" onclick="checkAnswer(12, 2, 0)">C) La diabetes tipo 1</div>
+                <div class="option" onclick="checkAnswer(12, 3, 0)">D) La diabetes tipo 2</div>
+            </div>
+            <div class="explanation" id="explanation-12">
+                <strong>Explicación / Justificación Médica:</strong> La glucemia en ayunas elevada y la presencia de embarazo sugieren un diagnóstico de diabetes gestacional.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Obstetricia y Ginecología</div>
+        </div>
+
+    </div>
+    
+    <script>
+        let correct = 0;
+        let total = 0;
+        
+        function checkAnswer(questionNum, selected, correctAnswer) {
+            const question = document.getElementById('question-' + questionNum);
+            const options = question.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation-' + questionNum);
+            
+            // Desabilitar todas las opciones de esta pregunta
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            // Marcar la seleccionada
+            if (selected === correctAnswer) {
+                options[selected].classList.add('correct');
+                correct++;
+            } else {
+                options[selected].classList.add('incorrect');
+                options[correctAnswer].classList.add('correct');
+            }
+            
+            // Mostrar explicación
+            explanation.classList.add('show');
+            
+            // Actualizar puntuación
+            total++;
+            updateScore();
+        }
+        
+        function updateScore() {
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.add('show');
+            scoreDiv.textContent = `Puntuación: ${correct}/${total} (${Math.round((correct/total)*100)}%)`;
+        }
+    </script>
+</body>
+</html>

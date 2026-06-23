@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - GW- AULA2VIRTUALEXTENSIVOMED1- ITU SEPSIS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .progress {
+            text-align: center;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #1e3c72;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #d0d7de;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .option:hover {
+            border-color: #1e3c72;
+            background: #f0f4f8;
+            transform: translateX(5px);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 500;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            display: none;
+            font-size: 15px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .explanation strong {
+            color: #856404;
+            font-weight: bold;
+        }
+        
+        .meta {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+            font-style: italic;
+        }
+        
+        .score {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .score.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .option {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SIMULACRO INTERACTIVO - EXAMEN DE GRADO DE MEDICINA</h1>
+            <p class="subtitle">Bolivia - Preparación Oficial</p>
+        </div>
+        
+        <p class="description">Questões geradas a partir de GW- AULA2VIRTUALEXTENSIVOMED1- ITU SEPSIS.pdf</p>
+        
+        <div class="score" id="score"></div>
+
+        <div class="question" id="question-1">
+            <div class="question-header">
+                <span>PREGUNTA 1 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente femenino de 28 años presenta dolor suprapúbico intenso y escozor urinario durante 2 días. La orina está fétida y tiene una temperatura corporal de 37.5°C. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(1, 0, 0)">A) EIT baja → Uretritis → Cistitis</div>
+                <div class="option" onclick="checkAnswer(1, 1, 0)">B) EIT alta → Pielonefritis aguda</div>
+                <div class="option" onclick="checkAnswer(1, 2, 0)">C) Infección vaginal → Cándida albicans</div>
+                <div class="option" onclick="checkAnswer(1, 3, 0)">D) Infección gastrointestinal → Colitis ulcerosa</div>
+            </div>
+            <div class="explanation" id="explanation-1">
+                <strong>Explicación / Justificación Médica:</strong> El dolor suprapúbico intenso y escozor urinario son signos de infección en las vías urinarias. La temperatura corporal no está elevada, lo que sugiere una infección baja. La uretritis o cistitis son los diagnósticos más probables.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-2">
+            <div class="question-header">
+                <span>PREGUNTA 2 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente masculino de 50 años presenta dolor retrovertebral intenso y fiebre de 38.5°C durante 3 días. La orina está turbia y hay hematuria. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(2, 0, 0)">A) Pielonefritis crónica</div>
+                <div class="option" onclick="checkAnswer(2, 1, 0)">B) Nefrite intersticial</div>
+                <div class="option" onclick="checkAnswer(2, 2, 0)">C) Hepatite viral</div>
+                <div class="option" onclick="checkAnswer(2, 3, 0)">D) Pneumonía bacteriana</div>
+            </div>
+            <div class="explanation" id="explanation-2">
+                <strong>Explicación / Justificación Médica:</strong> El dolor retrovertebral intenso y la fiebre sugieren una infección en el sistema urinario. La hematuria y la orina turbia apoyan un diagnóstico de pielonefritis crónica.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-3">
+            <div class="question-header">
+                <span>PREGUNTA 3 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente femenino de 30 años presenta dolor abdominal intenso y vómitos durante 1 día. La temperatura corporal es de 39°C y tiene leucocitos: 18.000/mm³ con neutrofilia del 90%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(3, 0, 0)">A) Apendicitis aguda</div>
+                <div class="option" onclick="checkAnswer(3, 1, 0)">B) Colecistitis aguda</div>
+                <div class="option" onclick="checkAnswer(3, 2, 0)">C) Páncreas agudo</div>
+                <div class="option" onclick="checkAnswer(3, 3, 0)">D) Gastroenteritis aguda</div>
+            </div>
+            <div class="explanation" id="explanation-3">
+                <strong>Explicación / Justificación Médica:</strong> El dolor abdominal intenso, vómitos y fiebre sugieren una infección en el tracto gastrointestinal. La leucocitosis con neutrofilia del 90% apoya un diagnóstito de apendicitis aguda.
+            </div>
+            <div class="meta">Dificultad: difícil | Tema: Cirugía General</div>
+        </div>
+
+        <div class="question" id="question-4">
+            <div class="question-header">
+                <span>PREGUNTA 4 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente masculino de 40 años presenta dolor en la región lumbar izquierda y debilitamiento muscular durante 2 semanas. La temperatura corporal es de 37°C y tiene leucocitos: 12.000/mm³ con linfocitosis del 70%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(4, 0, 0)">A) Piriformisitis</div>
+                <div class="option" onclick="checkAnswer(4, 1, 0)">B) Infección renal → Pielonefritis crónica</div>
+                <div class="option" onclick="checkAnswer(4, 2, 0)">C) Spondilite ankylopoietica</div>
+                <div class="option" onclick="checkAnswer(4, 3, 0)">D) Epatite viral</div>
+            </div>
+            <div class="explanation" id="explanation-4">
+                <strong>Explicación / Justificación Médica:</strong> El dolor en la región lumbar izquierda y debilitamiento muscular sugieren una infección ostra inflamación en el sistema esquelético. La leucocitosis con linfocitosis del 70% apoya un diagnóstico de spondilite ankylopoietica.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-5">
+            <div class="question-header">
+                <span>PREGUNTA 5 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente femenino de 25 años presenta dolor en la región púbica y escozor urinario durante 1 semana. La temperatura corporal es de 37°C y tiene leucocitos: 15.000/mm³ con neutrofilia del 80%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(5, 0, 0)">A) Cistitis</div>
+                <div class="option" onclick="checkAnswer(5, 1, 0)">B) Uretritis</div>
+                <div class="option" onclick="checkAnswer(5, 2, 0)">C) Infección vaginal → Cándida albicans</div>
+                <div class="option" onclick="checkAnswer(5, 3, 0)">D) Gastroenteritis aguda</div>
+            </div>
+            <div class="explanation" id="explanation-5">
+                <strong>Explicación / Justificación Médica:</strong> El dolor en la región púbica y escozor urinario sugieren una infección en las vías urinarias. La temperatura corporal no está elevada, lo que sugiere una infección baja. La uretritis o cistitis son los diagnósticos más probables.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-6">
+            <div class="question-header">
+                <span>PREGUNTA 6 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente masculino de 60 años presenta dolor en la región ilíaca izquierda y debilitamiento muscular durante 1 semana. La temperatura corporal es de 38°C y tiene leucocitos: 20.000/mm³ con neutrofilia del 90%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(6, 0, 0)">A) Piriformisitis</div>
+                <div class="option" onclick="checkAnswer(6, 1, 0)">B) Infección renal → Pielonefritis aguda</div>
+                <div class="option" onclick="checkAnswer(6, 2, 0)">C) Spondilite ankylopoietica</div>
+                <div class="option" onclick="checkAnswer(6, 3, 0)">D) Epatite viral</div>
+            </div>
+            <div class="explanation" id="explanation-6">
+                <strong>Explicación / Justificación Médica:</strong> El dolor en la región ilíaca izquierda y debilitamiento muscular sugieren una infección ostra inflamación en el sistema esquelético. La leucocitosis con neutrofilia del 90% apoya un diagnóstico de piriformisitis.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-7">
+            <div class="question-header">
+                <span>PREGUNTA 7 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente femenino de 22 años presenta dolor en la región lumbar derecha y debilitamiento muscular durante 2 semanas. La temperatura corporal es de 37°C y tiene leucocitos: 12.000/mm³ con linfocitosis del 70%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(7, 0, 0)">A) Spondilite ankylopoietica</div>
+                <div class="option" onclick="checkAnswer(7, 1, 0)">B) Infección renal → Pielonefritis crónica</div>
+                <div class="option" onclick="checkAnswer(7, 2, 0)">C) Piriformisitis</div>
+                <div class="option" onclick="checkAnswer(7, 3, 0)">D) Epatite viral</div>
+            </div>
+            <div class="explanation" id="explanation-7">
+                <strong>Explicación / Justificación Médica:</strong> El dolor en la región lumbar derecha y debilitamiento muscular sugieren una infección ostra inflamación en el sistema esquelético. La leucocitosis con linfocitosis del 70% apoya un diagnóstico de spondilite ankylopoietica.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-8">
+            <div class="question-header">
+                <span>PREGUNTA 8 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente masculino de 45 años presenta dolor en la región ilíaca izquierda y debilitamiento muscular durante 1 semana. La temperatura corporal es de 38°C y tiene leucocitos: 18.000/mm³ con neutrofilia del 85%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(8, 0, 0)">A) Piriformisitis</div>
+                <div class="option" onclick="checkAnswer(8, 1, 0)">B) Infección renal → Pielonefritis aguda</div>
+                <div class="option" onclick="checkAnswer(8, 2, 0)">C) Spondilite ankylopoietica</div>
+                <div class="option" onclick="checkAnswer(8, 3, 0)">D) Epatite viral</div>
+            </div>
+            <div class="explanation" id="explanation-8">
+                <strong>Explicación / Justificación Médica:</strong> El dolor en la región ilíaca izquierda y debilitamiento muscular sugieren una infección ostra inflamación en el sistema esquelético. La leucocitosis con neutrofilia del 85% apoya un diagnóstico de piriformisitis.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-9">
+            <div class="question-header">
+                <span>PREGUNTA 9 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente femenino de 28 años presenta dolor en la región púbica y escozor urinario durante 1 semana. La temperatura corporal es de 37°C y tiene leucocitos: 15.000/mm³ con neutrofilia del 80%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(9, 0, 0)">A) Cistitis</div>
+                <div class="option" onclick="checkAnswer(9, 1, 0)">B) Uretritis</div>
+                <div class="option" onclick="checkAnswer(9, 2, 0)">C) Infección vaginal → Cándida albicans</div>
+                <div class="option" onclick="checkAnswer(9, 3, 0)">D) Gastroenteritis aguda</div>
+            </div>
+            <div class="explanation" id="explanation-9">
+                <strong>Explicación / Justificación Médica:</strong> El dolor en la región púbica y escozor urinario sugieren una infección en las vías urinarias. La temperatura corporal no está elevada, lo que sugiere una infección baja. La uretritis o cistitis son los diagnósticos más probables.
+            </div>
+            <div class="meta">Dificultad: fácil | Tema: Medicina Interna</div>
+        </div>
+
+        <div class="question" id="question-10">
+            <div class="question-header">
+                <span>PREGUNTA 10 DE 10</span>
+            </div>
+            <div class="question-text">Un paciente masculino de 50 años presenta dolor en la región lumbar izquierda y debilitamiento muscular durante 2 semanas. La temperatura corporal es de 37°C y tiene leucocitos: 12.000/mm³ con linfocitosis del 70%. ¿Cuál es el diagnóstico más probable?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(10, 0, 0)">A) Spondilite ankylopoietica</div>
+                <div class="option" onclick="checkAnswer(10, 1, 0)">B) Infección renal → Pielonefritis crónica</div>
+                <div class="option" onclick="checkAnswer(10, 2, 0)">C) Piriformisitis</div>
+                <div class="option" onclick="checkAnswer(10, 3, 0)">D) Epatite viral</div>
+            </div>
+            <div class="explanation" id="explanation-10">
+                <strong>Explicación / Justificación Médica:</strong> El dolor en la región lumbar izquierda y debilitamiento muscular sugieren una infección ostra inflamación en el sistema esquelético. La leucocitosis con linfocitosis del 70% apoya un diagnóstico de spondilite ankylopoietica.
+            </div>
+            <div class="meta">Dificultad: media | Tema: Medicina Interna</div>
+        </div>
+
+    </div>
+    
+    <script>
+        let correct = 0;
+        let total = 0;
+        
+        function checkAnswer(questionNum, selected, correctAnswer) {
+            const question = document.getElementById('question-' + questionNum);
+            const options = question.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation-' + questionNum);
+            
+            // Desabilitar todas las opciones de esta pregunta
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            // Marcar la seleccionada
+            if (selected === correctAnswer) {
+                options[selected].classList.add('correct');
+                correct++;
+            } else {
+                options[selected].classList.add('incorrect');
+                options[correctAnswer].classList.add('correct');
+            }
+            
+            // Mostrar explicación
+            explanation.classList.add('show');
+            
+            // Actualizar puntuación
+            total++;
+            updateScore();
+        }
+        
+        function updateScore() {
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.add('show');
+            scoreDiv.textContent = `Puntuación: ${correct}/${total} (${Math.round((correct/total)*100)}%)`;
+        }
+    </script>
+</body>
+</html>
