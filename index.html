@@ -503,25 +503,15 @@
             <p>Selecione um simulado para começar sua revisão</p>
         </div>
 
-        <div class="stats-bar">
-            <div class="stat-item">
-                <div class="stat-value" id="completedCount">0</div>
-                <div class="stat-label">Concluídos</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value" id="progressPercent">0%</div>
-                <div class="stat-label">Progresso</div>
-            </div>
-        </div>
 
         <div class="tabs-container" id="tabsContainer">
-            <button class="tab-btn active" data-category="all">Todos (22)</button>
-            <button class="tab-btn" data-category="pediatria">👶 Pediatria (6)</button>
-            <button class="tab-btn" data-category="infecciosa">🦠 Infectologia (5)</button>
-            <button class="tab-btn" data-category="obstetricia">🤰 Obstetrícia (4)</button>
-            <button class="tab-btn" data-category="cardiologia">❤️ Cardiologia (2)</button>
-            <button class="tab-btn" data-category="cirurgia">🔪 Cirurgia (2)</button>
-            <button class="tab-btn" data-category="medicina">🩺 Medicina (3)</button>
+            <button class="tab-btn active" data-category="all">Todos</button>
+            <button class="tab-btn" data-category="pediatria">👶 Pediatria</button>
+            <button class="tab-btn" data-category="infecciosa">🦠 Infectologia</button>
+            <button class="tab-btn" data-category="obstetricia">🤰 Obstetrícia</button>
+            <button class="tab-btn" data-category="cardiologia">❤️ Cardiologia</button>
+            <button class="tab-btn" data-category="cirurgia">🔪 Cirurgia</button>
+            <button class="tab-btn" data-category="medicina">🩺 Medicina</button>
         </div>
 
         <div class="simulados-grid" id="simuladosGrid">
@@ -1034,7 +1024,6 @@
 
         <div class="footer">
             <p>🎓 OmniStudy - Sistema de Automação para Estudos</p>
-            <p>Total de 22 simulados disponíveis</p>
         </div>
     </div>
 
@@ -1095,15 +1084,6 @@
             localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
         }
         
-        // Update statistics display
-        function updateStats() {
-            const completed = loadProgress();
-            const total = 22;
-            const percentage = Math.round((completed.length / total) * 100);
-            
-            document.getElementById('completedCount').textContent = completed.length;
-            document.getElementById('progressPercent').textContent = percentage + '%';
-        }
         
         // Update card styles based on completion status
         function updateCardStyles() {
@@ -1182,7 +1162,6 @@
                 }
                 
                 saveProgress(completed);
-                updateStats();
             });
         });
         
@@ -1224,7 +1203,6 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadTheme();
-            updateStats();
             updateCardStyles();
             updateNotes();
         });
