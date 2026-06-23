@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Estudos - OmniStudy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+
+        .simulados-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .simulado-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-decoration: none;
+            display: block;
+        }
+
+        .simulado-card:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            border-color: #667eea;
+        }
+
+        .simulado-card:hover .simulado-title {
+            color: #ffffff;
+        }
+
+        .simulado-card:hover .simulado-icon {
+            transform: scale(1.2);
+        }
+
+        .simulado-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .simulado-title {
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: 600;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 15px;
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .pediatria { background: #d4edda; color: #155724; }
+        .cirurgia { background: #cce5ff; color: #004085; }
+        .medicina { background: #fff3cd; color: #856404; }
+        .obstetricia { background: #f8d7da; color: #721c24; }
+        .cardiologia { background: #e2d9f3; color: #6f42c1; }
+        .infecciosa { background: #d1ecf1; color: #0c5460; }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e9ecef;
+            color: #6c757d;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .simulados-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Portal de Estudos</h1>
+            <p>Selecione um simulado para começar sua revisão</p>
+        </div>
+
+        <div class="simulados-grid">
+            <a href="📥 FAZER DOWNLOAD - Simulado_Copia de GW- A1 - MED 2 - HC  erisipela  celulitis.html" class="simulado-card">
+                <span class="simulado-icon">🩺</span>
+                <span class="simulado-title">Erisipela e Celulite - HC</span>
+                <span class="category-badge medicina">Medicina</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW - A2-MED 2 - ERGE  Gastritis  Ulceras  HD.html" class="simulado-card">
+                <span class="simulado-icon">🔬</span>
+                <span class="simulado-title">ERGE, Gastritis e Úlceras</span>
+                <span class="category-badge medicina">Gastroenterologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW PEDIATRIA AULA 1 (1).html" class="simulado-card">
+                <span class="simulado-icon">👶</span>
+                <span class="simulado-title">Pediatria Aula 1</span>
+                <span class="category-badge pediatria">Pediatria</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW PEDIATRIA AULA 1.html" class="simulado-card">
+                <span class="simulado-icon">👶</span>
+                <span class="simulado-title">Pediatria Aula 1</span>
+                <span class="category-badge pediatria">Pediatria</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW PEDIATRIA AULA 2 INTENSIVO.html" class="simulado-card">
+                <span class="simulado-icon">👶</span>
+                <span class="simulado-title">Pediatria Aula 2 Intensivo</span>
+                <span class="category-badge pediatria">Pediatria</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW PEDIATRIA AULA 4 INTENSIVO .html" class="simulado-card">
+                <span class="simulado-icon">👶</span>
+                <span class="simulado-title">Pediatria Aula 4 Intensivo</span>
+                <span class="category-badge pediatria">Pediatria</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW PEDIATRIA AULA 5 INTENSIVO .html" class="simulado-card">
+                <span class="simulado-icon">👶</span>
+                <span class="simulado-title">Pediatria Aula 5 Intensivo</span>
+                <span class="category-badge pediatria">Pediatria</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW PEDIATRIA AULA 5.2 INTENSIVO .html" class="simulado-card">
+                <span class="simulado-icon">👶</span>
+                <span class="simulado-title">Pediatria Aula 5.2 Intensivo</span>
+                <span class="category-badge pediatria">Pediatria</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW- AULA2VIRTUALEXTENSIVOMED1- ITU SEPSIS.html" class="simulado-card">
+                <span class="simulado-icon">🦠</span>
+                <span class="simulado-title">ITU e Sepse</span>
+                <span class="category-badge infecciosa">Infectologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-A5- EXT MED 1 DBM, HTA + SD CORONARIOS .html" class="simulado-card">
+                <span class="simulado-icon">❤️</span>
+                <span class="simulado-title">DBM, HTA e SD Coronários</span>
+                <span class="category-badge cardiologia">Cardiologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-CIRU-AULA 2 - MARO-26.html" class="simulado-card">
+                <span class="simulado-icon">🔪</span>
+                <span class="simulado-title">Cirurgia Aula 2</span>
+                <span class="category-badge cirurgia">Cirurgia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-CIRU-AULA 3 - MARÇO-26.html" class="simulado-card">
+                <span class="simulado-icon">🔪</span>
+                <span class="simulado-title">Cirurgia Aula 3</span>
+                <span class="category-badge cirurgia">Cirurgia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-MED1- ICC +F REUMATICA.html" class="simulado-card">
+                <span class="simulado-icon">❤️</span>
+                <span class="simulado-title">ICC e Febre Reumática</span>
+                <span class="category-badge cardiologia">Cardiologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-PROG-CHAGAS.html" class="simulado-card">
+                <span class="simulado-icon">🦠</span>
+                <span class="simulado-title">Doença de Chagas</span>
+                <span class="category-badge infecciosa">Infectologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-PROG-DENGUE.html" class="simulado-card">
+                <span class="simulado-icon">🦟</span>
+                <span class="simulado-title">Dengue</span>
+                <span class="category-badge infecciosa">Infectologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-PROG-FIEBRE AMARILLA.html" class="simulado-card">
+                <span class="simulado-icon">🦟</span>
+                <span class="simulado-title">Febre Amarela</span>
+                <span class="category-badge infecciosa">Infectologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_GW-PROG-TB - janeiro 2026.html" class="simulado-card">
+                <span class="simulado-icon">🦠</span>
+                <span class="simulado-title">Tuberculose</span>
+                <span class="category-badge infecciosa">Infectologia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_Hemorragias 2° mitad del embarazo.html" class="simulado-card">
+                <span class="simulado-icon">🤰</span>
+                <span class="simulado-title">Hemorragias 2ª Metade Gravidez</span>
+                <span class="category-badge obstetricia">Obstetrícia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_Hemorragias..html" class="simulado-card">
+                <span class="simulado-icon">🩸</span>
+                <span class="simulado-title">Hemorragias</span>
+                <span class="category-badge medicina">Medicina</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_RPM APPT..html" class="simulado-card">
+                <span class="simulado-icon">🤰</span>
+                <span class="simulado-title">RPM e APPT</span>
+                <span class="category-badge obstetricia">Obstetrícia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_Sd Hta DM gest.html" class="simulado-card">
+                <span class="simulado-icon">🤰</span>
+                <span class="simulado-title">Sd Hta DM Gestacional</span>
+                <span class="category-badge obstetricia">Obstetrícia</span>
+            </a>
+
+            <a href="📥 FAZER DOWNLOAD - Simulado_hiperemesis gravídica.html" class="simulado-card">
+                <span class="simulado-icon">🤰</span>
+                <span class="simulado-title">Hiperêmese Gravídica</span>
+                <span class="category-badge obstetricia">Obstetrícia</span>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>🎓 OmniStudy - Sistema de Automação para Estudos</p>
+            <p>Total de 22 simulados disponíveis</p>
+        </div>
+    </div>
+</body>
+</html>
