@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - Parto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+        
+        .description {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .progress {
+            text-align: center;
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #1e3c72;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .question-text {
+            font-size: 17px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #d0d7de;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .option:hover {
+            border-color: #1e3c72;
+            background: #f0f4f8;
+            transform: translateX(5px);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 500;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            display: none;
+            font-size: 15px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .explanation strong {
+            color: #856404;
+            font-weight: bold;
+        }
+        
+        .meta {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+            font-style: italic;
+        }
+        
+        .score {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 26px;
+            font-weight: bold;
+            display: none;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+        
+        .score.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .question-text {
+                font-size: 15px;
+            }
+            
+            .option {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SIMULACRO INTERACTIVO - EXAMEN DE GRADO DE MEDICINA</h1>
+            <p class="subtitle">Bolivia - Preparación Oficial</p>
+        </div>
+        
+        <p class="description">Questões geradas a partir de Parto.pdf</p>
+        
+        <div class="score" id="score"></div>
+
+        <div class="question" id="question-1">
+            <div class="question-header">
+                <span>PREGUNTA 1 DE 11</span>
+            </div>
+            <div class="question-text">¿Cuál es el período en que se produce la expulsión del feto?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(1, 0, 0)">A) 1° periodo</div>
+                <div class="option" onclick="checkAnswer(1, 1, 0)">B) 2° periodo</div>
+                <div class="option" onclick="checkAnswer(1, 2, 0)">C) 3° periodo</div>
+            </div>
+            <div class="explanation" id="explanation-1">
+                <strong>Explicación / Justificación Médica:</strong> El 2° período corresponde a la expulsión del feto, lo que ocurre después de la dilatación y borramiento del cuello uterino.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-2">
+            <div class="question-header">
+                <span>PREGUNTA 2 DE 11</span>
+            </div>
+            <div class="question-text">¿Cuál es el marcapaso dominante en el trabajo de parto?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(2, 0, 0)">A) Cuerno izquierdo</div>
+                <div class="option" onclick="checkAnswer(2, 1, 0)">B) Cuerno derecho</div>
+            </div>
+            <div class="explanation" id="explanation-2">
+                <strong>Explicación / Justificación Médica:</strong> El cuerno derecho suele ser el marcapaso dominante, lo que significa que se inicia la contracción y se propaga al resto del útero.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-3">
+            <div class="question-header">
+                <span>PREGUNTA 3 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es el triple gradiente descendente?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(3, 0, 0)">A) Propagación de contracciones en fondo uterino</div>
+                <div class="option" onclick="checkAnswer(3, 1, 0)">B) Duración de las contracciones en el fondo uterino</div>
+                <div class="option" onclick="checkAnswer(3, 2, 0)">C) Intensidad de las contracciones en el fondo uterino</div>
+            </div>
+            <div class="explanation" id="explanation-3">
+                <strong>Explicación / Justificación Médica:</strong> El triple gradiente descendente se refiere a la propagación de contracciones en fondo uterino, la duración y intensidad de las contracciones en el fondo uterino.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-4">
+            <div class="question-header">
+                <span>PREGUNTA 4 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es el período latente del trabajo de parto?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(4, 0, 0)">A) Fase activa</div>
+                <div class="option" onclick="checkAnswer(4, 1, 0)">B) Fase expulsiva</div>
+                <div class="option" onclick="checkAnswer(4, 2, 0)">C) Fase latente</div>
+            </div>
+            <div class="explanation" id="explanation-4">
+                <strong>Explicación / Justificación Médica:</strong> El período latente del trabajo de parto corresponde a la fase en que se produce la dilatación y borramiento del cuello uterino, hasta los 4 cm.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-5">
+            <div class="question-header">
+                <span>PREGUNTA 5 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es el pinzamiento tardío u oportuno del cordón umbilical?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(5, 0, 0)">A) Ligadura inmediata</div>
+                <div class="option" onclick="checkAnswer(5, 1, 0)">B) Ligadura después de que el cordón umbilical deje de latir</div>
+            </div>
+            <div class="explanation" id="explanation-5">
+                <strong>Explicación / Justificación Médica:</strong> El pinzamiento tardío u oportuno del cordón umbilical se refiere a la ligadura y sección del cordón umbilical después de que este deje de latir, entre 1 a 3 minutos.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-6">
+            <div class="question-header">
+                <span>PREGUNTA 6 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es el mecanismo del trabajo de parto?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(6, 0, 0)">A) Movimientos y desplazamiento del móvil fetal</div>
+                <div class="option" onclick="checkAnswer(6, 1, 0)">B) Mecanismo uterino</div>
+            </div>
+            <div class="explanation" id="explanation-6">
+                <strong>Explicación / Justificación Médica:</strong> El mecanismo del trabajo de parto se refiere a los movimientos y desplazamientos que realiza el móvil fetal a través del canal de parto, impulsado por el motor uterino.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-7">
+            <div class="question-header">
+                <span>PREGUNTA 7 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es la maniobra de Ritgen?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(7, 0, 0)">A) Técnica utilizada durante el período expulsivo del parto para controlar la salida de la cabeza fetal</div>
+                <div class="option" onclick="checkAnswer(7, 1, 0)">B) Técnica utilizada durante el período latente del parto</div>
+            </div>
+            <div class="explanation" id="explanation-7">
+                <strong>Explicación / Justificación Médica:</strong> La maniobra de Ritgen es una técnica utilizada durante el período expulsivo del parto para controlar la salida de la cabeza fetal y prevenir desgarros perineales.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-8">
+            <div class="question-header">
+                <span>PREGUNTA 8 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es el episiotomía?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(8, 0, 0)">A) Sección perineo vaginal para ampliar el canal del parto</div>
+                <div class="option" onclick="checkAnswer(8, 1, 0)">B) Técnica utilizada durante el período latente del parto</div>
+            </div>
+            <div class="explanation" id="explanation-8">
+                <strong>Explicación / Justificación Médica:</strong> El episiotomía se refiere a la sección perineo vaginal para ampliar el canal del parto, lo que puede prevenir desgarros graves y otros problemas.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-9">
+            <div class="question-header">
+                <span>PREGUNTA 9 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es la curva de Friedman?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(9, 0, 0)">A) Representación gráfica del progreso del trabajo de parto</div>
+                <div class="option" onclick="checkAnswer(9, 1, 0)">B) Técnica utilizada durante el período expulsivo del parto</div>
+            </div>
+            <div class="explanation" id="explanation-9">
+                <strong>Explicación / Justificación Médica:</strong> La curva de Friedman es una representación gráfica del progreso del trabajo de parto, que muestra la dilatación y velocidad de descenso.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-10">
+            <div class="question-header">
+                <span>PREGUNTA 10 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es el plano de Hodge?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(10, 0, 0)">A) Escala que valora madurez del cuello y éxito en una inducción/conducción</div>
+                <div class="option" onclick="checkAnswer(10, 1, 0)">B) Representación gráfica del progreso del trabajo de parto</div>
+            </div>
+            <div class="explanation" id="explanation-10">
+                <strong>Explicación / Justificación Médica:</strong> El plano de Hodge evalúa el descenso del polo fetal durante la fase expulsiva del trabajo de parto.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+        <div class="question" id="question-11">
+            <div class="question-header">
+                <span>PREGUNTA 11 DE 11</span>
+            </div>
+            <div class="question-text">¿Qué es la inducción del trabajo de parto?</div>
+            <div class="options">
+                <div class="option" onclick="checkAnswer(11, 0, 0)">A) Provocar aparición de contracciones antes del inicio espontaneo del TP</div>
+                <div class="option" onclick="checkAnswer(11, 1, 0)">B) Regularizar contracciones hasta obtener un trabajo de parto adecuado</div>
+            </div>
+            <div class="explanation" id="explanation-11">
+                <strong>Explicación / Justificación Médica:</strong> La inducción del trabajo de parto se refiere a provocar la aparición de contracciones antes del inicio espontaneo del trabajo de parto, lo que puede ser necesario en ciertos casos.
+            </div>
+            <div class="meta">Dificultad: média | Tema: Geral</div>
+        </div>
+
+    </div>
+    
+    <script>
+        let correct = 0;
+        let total = 0;
+        
+        function checkAnswer(questionNum, selected, correctAnswer) {
+            const question = document.getElementById('question-' + questionNum);
+            const options = question.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation-' + questionNum);
+            
+            // Desabilitar todas las opciones de esta pregunta
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            // Marcar la seleccionada
+            if (selected === correctAnswer) {
+                options[selected].classList.add('correct');
+                correct++;
+            } else {
+                options[selected].classList.add('incorrect');
+                options[correctAnswer].classList.add('correct');
+            }
+            
+            // Mostrar explicación
+            explanation.classList.add('show');
+            
+            // Actualizar puntuación
+            total++;
+            updateScore();
+        }
+        
+        function updateScore() {
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.add('show');
+            scoreDiv.textContent = `Puntuación: ${correct}/${total} (${Math.round((correct/total)*100)}%)`;
+        }
+    </script>
+</body>
+</html>
