@@ -1911,6 +1911,13 @@
                     return file.replace(/^site_files\//, '');
                 }
             }
+
+            // Se o arquivo HC for apenas um nome simples, ele está na pasta CASOS/
+            // porque o index.html está em site_files/ e os arquivos HC estão em site_files/CASOS/.
+            if (!file.includes('/') && file.endsWith('.html')) {
+                return `CASOS/${file}`;
+            }
+
             return file;
         }
 
